@@ -67,6 +67,7 @@ export class GameController extends Component {
                 if (!this.isOver) {
                     CameraAnim.getComponent(Animation).play();
                     this.isOver = true;
+                    LoseSound.play();
                 }
     
                 this.scheduleOnce(() => {
@@ -75,7 +76,6 @@ export class GameController extends Component {
     
                 Constant.speed = 0;
                 ScoreBoard.active = true;
-                LoseSound.play();
                 input.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
                 CurrScore.string = `Current\n${this.currScore}`;
             }
