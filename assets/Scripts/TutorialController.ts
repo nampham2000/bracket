@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, input, Input, sys, director, AudioSource, UITransform, Vec3, instantiate, Sprite, Animation } from 'cc';
+import { _decorator, Component, Node, Prefab, input, Input, sys, director, AudioSource, UITransform, Vec3, instantiate, Sprite, Animation, Label } from 'cc';
 const { ccclass, property } = _decorator;
 import { Constant } from './Data/Constant';
 
@@ -14,11 +14,24 @@ export class TutorialController extends Component {
     })
     private bracketPrefab: Prefab;
 
+    @property({
+        type: Label
+    })
+    private Best: Label;
+
     private oldArray: number[] = [0,1,2,3];
     private newArray: number[] = [];
     private volumeValue: number = 1;
 
     start() {
+        const highScoreFromLocalStorage = localStorage.getItem('highScore');
+        if (highScoreFromLocalStorage !== null) {
+            Constant.dataUser.highScore = parseInt(highScoreFromLocalStorage);
+        } else {
+            Constant.dataUser.highScore = 0;
+        }
+
+        this.Best.string=`Best Score\n${highScoreFromLocalStorage}`
         input.on(Input.EventType.TOUCH_END, () => {
             director.loadScene('Game');
         }, this);

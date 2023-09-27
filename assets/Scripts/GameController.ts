@@ -20,7 +20,7 @@ export class GameController extends Component {
     protected onLoad(): void {
         director.resume();
         this.spawnDot();
-        
+        Constant.speed = 150;
         const storedVolume = localStorage.getItem(Constant.audioVolumeKey);
         const volumeValue = storedVolume ? parseInt(storedVolume) : 1;
         const audioElements = [
@@ -71,8 +71,10 @@ export class GameController extends Component {
                 }
     
                 this.scheduleOnce(() => {
-                    director.pause();
-                }, 0.51);
+                    director.loadScene("Main");
+                }, 2);
+
+               
     
                 Constant.speed = 0;
                 ScoreBoard.active = true;
